@@ -204,6 +204,13 @@ export type TranslationKey =
   | "about.visit.phone"
   | "about.visit.email"
   | "about.visit.kvk"
+  | "about.team.title"
+  | "about.team.chef.name"
+  | "about.team.chef.role"
+  | "about.team.chef.description"
+  | "about.team.barman.name"
+  | "about.team.barman.role"
+  | "about.team.barman.description"
 
   // Footer
   | "footer.description"
@@ -460,6 +467,13 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "about.visit.phone": "Phone",
     "about.visit.email": "Email",
     "about.visit.kvk": "KVK Number",
+    "about.team.title": "Meet Our Team",
+    "about.team.chef.name": "Azeb",
+    "about.team.chef.role": "Head Chef",
+    "about.team.chef.description": "With years of experience in Eritrean cuisine, Azeb brings authentic flavors and traditional cooking techniques to every dish.",
+    "about.team.barman.name": "Tesfit",
+    "about.team.barman.role": "Bar Manager",
+    "about.team.barman.description": "Tesfit creates the perfect atmosphere with his expertly crafted cocktails and extensive knowledge of beverages.",
 
     // Footer
     "footer.description":
@@ -720,6 +734,13 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "about.visit.phone": "Telefoon",
     "about.visit.email": "E-mail",
     "about.visit.kvk": "KVK Nummer",
+    "about.team.title": "Maak kennis met ons team",
+    "about.team.chef.name": "Azeb",
+    "about.team.chef.role": "Hoofdchef",
+    "about.team.chef.description": "Met jarenlange ervaring in de Eritrese keuken brengt Azeb authentieke smaken en traditionele kooktechnieken naar elk gerecht.",
+    "about.team.barman.name": "Tesfit",
+    "about.team.barman.role": "Bar Manager",
+    "about.team.barman.description": "Tesfit creëert de perfecte sfeer met zijn vakkundig bereide cocktails en uitgebreide kennis van dranken.",
 
     // Footer
     "footer.description":

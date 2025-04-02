@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { motion } from "framer-motion"
 import emailjs from "@emailjs/browser"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -14,7 +15,6 @@ import { Input } from "@/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { useState, useRef, useEffect } from "react"
@@ -122,22 +122,37 @@ export function BookingForm() {
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text)
-        toast({
-          title: mounted ? t("booking.form.success.title") : "Reservation Confirmed",
+        toast.success(mounted ? t("booking.form.success.title") : "Reservation Confirmed", {
           description: mounted 
             ? t("booking.form.success.description") 
             : `Your table for ${values.guests} on ${format(values.date, "PPP")} at ${values.time} has been reserved. You'll receive a confirmation email shortly.`,
+          duration: 5000,
+          className: "bg-white text-neutral-900 border border-gold-200",
+          style: {
+            background: "white",
+            color: "#171717",
+            border: "1px solid #E5E7EB",
+            borderRadius: "0.5rem",
+            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+          },
         })
         form.reset()
       })
       .catch((err) => {
         console.error("FAILED...", err)
-        toast({
-          title: mounted ? t("booking.form.error.title") || "Reservation Failed" : "Reservation Failed",
+        toast.error(mounted ? t("booking.form.error.title") || "Reservation Failed" : "Reservation Failed", {
           description: mounted 
             ? t("booking.form.error.description") || "There was an error processing your reservation. Please try again or contact us directly."
             : "There was an error processing your reservation. Please try again or contact us directly.",
-          variant: "destructive",
+          duration: 5000,
+          className: "bg-white text-neutral-900 border border-red-200",
+          style: {
+            background: "white",
+            color: "#171717",
+            border: "1px solid #FEE2E2",
+            borderRadius: "0.5rem",
+            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+          },
         })
       })
       .finally(() => {

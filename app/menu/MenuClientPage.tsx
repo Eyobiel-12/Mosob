@@ -3,12 +3,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useValidatedTranslations } from "@/lib/i18n/use-validated-translations"
 
 // Menu data extracted from the provided images
 const foodMenu = {
   appetizers: [
-    { name: "Brisin/Linzen Soep", description: "Lentil soup with onions, fresh tomatoes and curry", price: "€6.00" },
+    { name: "Brisin/Linzen Soep", description: "Lentil soup with spring onions, fresh tomatoes and curry", price: "€6.00" },
     { name: "Duba/Pompoen (Soep)", description: "Pumpkin with onions, garlic and Mosob Asmara spices", price: "€6.00" },
     {
       name: "Bamia/Okra (Soep)",
@@ -19,36 +20,32 @@ const foodMenu = {
   meatDishes: [
     {
       name: "Zigni",
-      description:
-        "Prime beef tenderloin simmered in a complex berbere spice blend, finished with clarified butter and fresh herbs",
+      description: "Beef hot and rich in spices",
       price: "€16.50",
     },
     {
       name: "Derho",
-      description: "Free-range chicken legs delicately braised in a vibrant red sauce infused with aromatic herbs",
+      description: "Chicken legs in red spicy sauce, rich in herbs",
       price: "€16.50",
     },
     {
       name: "Bamia Siga",
-      description:
-        "Tender beef medallions with heirloom okra in a light tomato essence, perfumed with our signature herb blend",
+      description: "Okra (tropical vegetable) with beef pieces in light tomato sauce, onion and various Mosob Asmara herbs",
       price: "€16.50",
     },
     {
       name: "Beg Alicha",
-      description: "Succulent lamb slowly simmered in an aromatic herb sauce, accompanied by heritage potatoes",
-      price: "€17.50",
+      description: "Lamb bone in curry sauce, pepper and potato",
+      price: "€20.00",
     },
     {
       name: "Tessbi (Wit of Rood)",
-      description:
-        "Dry-aged beef, lightly spiced and pan-seared to perfection with Ethiopian butter until delicately crisp",
+      description: "Mild/mildly spiced beef fried hard with butter until dry and served in a dish",
       price: "€17.50",
     },
     {
       name: "Kilwa (Wit of Rood)",
-      description:
-        "Premium lamb medallions gently seared with clarified butter, red chilies, fresh rosemary and a medley of peppers",
+      description: "Cut into pieces and gently fried beef with butter on the fire with red onions, rosemary and fresh peppers and various herbs served in a dish",
       price: "€17.50",
     },
     {
@@ -58,14 +55,12 @@ const foodMenu = {
     },
     {
       name: "Gored Gored",
-      description:
-        "Lamb medallions delicately cooked with Ethiopian butter, infused with aromatic spices and finished with a touch of pepper",
+      description: "Lamb boiled with butter and spicy pepper",
       price: "€20.00",
     },
     {
       name: "Shek La",
-      description:
-        "Prime cuts of lamb, slow-roasted over an open flame with butter, caramelized red onions and fresh rosemary",
+      description: "Long sliced lamb, baked on the fire with butter, red onions and rosemary",
       price: "€20.00",
     },
     {
@@ -74,92 +69,84 @@ const foodMenu = {
       price: "€20.00",
     },
     {
-      name: "Mix Vlees",
-      description:
-        "A curated selection of three signature meat preparations, offering a journey through Eritrean culinary traditions",
-      price: "€16.50",
+      name: "Ma Mix Vlees",
+      description: "Combination of 3 meat dishes (choose from numbers 1,2 and 3or 6)",
+      price: "€45.50",
     },
   ],
   fishDishes: [
     {
-      name: "Assa Avis",
-      description: "Delicate fish fillets, gently sautéed with vine-ripened tomatoes, sweet onions and aromatic thyme",
+      name: "Assa / Vis",
+      description: "Fish fillet chopped in pieces, tomatoes,spring onion and thyme",
       price: "€20.00",
     },
     {
       name: "Gamba Saus",
-      description: "Wild-caught shrimp in a velvety curry sauce, balanced with subtle spices and fresh herbs",
+      description: "Shrimp in tasty curry saus",
       price: "€20.00",
     },
   ],
   vegetarianDishes: [
     {
       name: "Shiro",
-      description:
-        "Velvety puree of heirloom legumes, simmered with garlic, coriander and our house-blended Mosob Asmara spices",
+      description: "Sprouted peas in red sauce, garlic, coriander and traditional spices",
+      price: "€20.00",
+    },
+    {
+      name: "Doeba",
+      description: "Pumpkin sauce with traditional Mosob Asmara spices",
       price: "€15.00",
     },
     {
-      name: "Duba",
-      description: "Organic pumpkin slow-cooked in a rich sauce with traditional Mosob Asmara spice blend",
-      price: "€15.00",
-    },
-    {
-      name: "Temtemades",
-      description:
-        "Artisanal lentils in a fragrant sauce with vine-ripened tomatoes, garlic and our signature spice blend",
+      name: "Temtemo/Ades",
+      description: "Lentil sauce with onions, tomatoes and other traditional Mosob Asmara spices",
       price: "€15.00",
     },
     {
       name: "Alicha",
-      description:
-        "Garden-fresh vegetables delicately spiced and sautéed with green beans, heirloom carrots and heritage potatoes",
+      description: "Mild/softly spiced, mixed vegetables with green beans, carrots, garlic and potatoes served in the Mosob Asmara dish",
       price: "€15.00",
     },
     {
       name: "Spinazie",
-      description:
-        "Tender spinach leaves sautéed with cold-pressed olive oil, vine-ripened tomatoes, garlic and aromatic pepper",
+      description: "Fresh spinach cooked in olive oil with onion, garlic and paprika",
       price: "€15.00",
     },
     {
       name: "Selsi of Okra Selsi",
-      description:
-        "Heirloom okra gently braised in a vibrant red sauce with our proprietary blend of Mosob Asmara spices",
-      price: "€15.00",
-    },
-    {
-      name: "Ma Pasta Spinazie",
-      description:
-        "Fresh spinach sautéed in extra virgin olive oil with vine-ripened tomatoes, garlic and a touch of cream",
+      description: "Selsi, fresh onions in red sauce with different Mosob Asmara spices",
       price: "€15.00",
     },
     {
       name: "Ma-Special Bami",
-      description: "Tender spinach leaves sautéed with premium olive oil, sweet tomatoes and a delicate garlic cream",
-      price: "€15.00",
+      description: "Onions and garlic peppers, chicken meat and egg",
+      price: "€16.50",
+    },
+    {
+      name: "Ma Pasta Spinazie",
+      description: "Fresh spinach fried in olive oil with tomatoes and garlic and creme",
+      price: "€16.50",
     },
     {
       name: "Ma Mix Vegetarisch",
-      description:
-        "A thoughtfully curated selection of three vegetarian specialties, showcasing the diversity of Eritrean plant-based cuisine",
-      price: "€13.50",
+      description: "Combination of max. 3 Mosob Asmara vegetarian dishes (15,16 and 17 or 18 and 19)",
+      price: "€43.50",
     },
   ],
   desserts: [
     {
       name: "Honing IJs",
-      description: "Artisanal ice cream selection drizzled with wild honey and toasted nuts",
+      description: "Different kinds of ice cream with honey & nuts",
       price: "€5.00",
     },
     {
       name: "Ma-IJs",
-      description: "House-made ice cream with fresh mango, pistachios and our signature dressing",
+      description: "Various types of ice cream, fresh mango base pistachios and delicious homemade dressing",
       price: "€5.00",
     },
     {
       name: "Ma Dream",
-      description: "Toasted linseed with Medjool dates, organic yogurt and wild honey",
+      description: "Roasted linseed, dates, yogurt and bee honey",
       price: "€5.00",
     },
   ],
@@ -226,6 +213,31 @@ const drinksMenu = {
 export default function MenuClientPage() {
   const [selectedCategory, setSelectedCategory] = useState("appetizers")
   const [selectedDrinkCategory, setSelectedDrinkCategory] = useState("whisky")
+  const [mounted, setMounted] = useState(false)
+  
+  const { t, language } = useValidatedTranslations("MenuPage", [
+    "menu.hero.subtitle",
+    "menu.hero.title", 
+    "menu.tabs.food",
+    "menu.tabs.drinks",
+    "menu.categories.appetizers",
+    "menu.categories.meat",
+    "menu.categories.fish",
+    "menu.categories.vegetarian",
+    "menu.categories.desserts",
+    "menu.categories.whisky",
+    "menu.categories.beers",
+    "menu.categories.spirits",
+    "menu.categories.cognac",
+    "menu.categories.rum",
+    "menu.categories.wines",
+    "menu.categories.softDrinks",
+    "menu.categories.hotDrinks"
+  ])
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <div>
@@ -241,8 +253,12 @@ export default function MenuClientPage() {
         />
         <div className="relative z-20 container mx-auto h-full flex flex-col justify-center items-center px-4 md:px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <h2 className="text-gold-500 font-serif text-lg tracking-widest uppercase mb-4">Culinary Excellence</h2>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">Our Menu</h1>
+            <h2 className="text-gold-500 font-serif text-lg tracking-widest uppercase mb-4">
+              {mounted ? t("menu.hero.subtitle") : "Culinary Excellence"}
+            </h2>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
+              {mounted ? t("menu.hero.title") : "Our Menu"}
+            </h1>
             <div className="w-24 h-0.5 bg-gold-500 mx-auto"></div>
           </motion.div>
         </div>
@@ -255,13 +271,13 @@ export default function MenuClientPage() {
               value="food"
               className="text-lg font-serif py-3 data-[state=active]:text-gold-500 data-[state=active]:border-b-2 data-[state=active]:border-gold-500 rounded-none"
             >
-              Food Menu
+              {mounted ? t("menu.tabs.food") : "Food Menu"}
             </TabsTrigger>
             <TabsTrigger
               value="drinks"
               className="text-lg font-serif py-3 data-[state=active]:text-gold-500 data-[state=active]:border-b-2 data-[state=active]:border-gold-500 rounded-none"
             >
-              Drinks Menu
+              {mounted ? t("menu.tabs.drinks") : "Drinks Menu"}
             </TabsTrigger>
           </TabsList>
 
@@ -270,7 +286,7 @@ export default function MenuClientPage() {
               <div className="relative">
                 <div className="hidden md:block">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/menu-2-standard.jpg-kOrET33rB3VIs28cDixkA5JFBCYMdB.jpeg"
+                    src="/menu.jpeg"
                     alt="Mosob Asmara Food Menu"
                     width={800}
                     height={1200}
@@ -292,12 +308,14 @@ export default function MenuClientPage() {
                           }`}
                         >
                           {category === "meatDishes"
-                            ? "Meat"
+                            ? mounted ? t("menu.categories.meat") : "Meat"
                             : category === "fishDishes"
-                              ? "Fish"
+                              ? mounted ? t("menu.categories.fish") : "Fish"
                               : category === "vegetarianDishes"
-                                ? "Vegetarian"
-                                : category.charAt(0).toUpperCase() + category.slice(1)}
+                                ? mounted ? t("menu.categories.vegetarian") : "Vegetarian"
+                                : category === "appetizers"
+                                  ? mounted ? t("menu.categories.appetizers") : "Appetizers"
+                                  : mounted ? t("menu.categories.desserts") : "Desserts"}
                         </button>
                       ))}
                     </div>
@@ -310,7 +328,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Appetizers
+                          {mounted ? t("menu.categories.appetizers") : "Appetizers"}
                         </h2>
                         <div className="grid gap-8">
                           {foodMenu.appetizers.map((item, index) => (
@@ -334,7 +352,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Meat Dishes
+                          {mounted ? t("menu.categories.meat") : "Meat Dishes"}
                         </h2>
                         <div className="grid gap-8">
                           {foodMenu.meatDishes.map((item, index) => (
@@ -358,7 +376,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Fish Dishes
+                          {mounted ? t("menu.categories.fish") : "Fish Dishes"}
                         </h2>
                         <div className="grid gap-8">
                           {foodMenu.fishDishes.map((item, index) => (
@@ -382,7 +400,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Vegetarian Dishes
+                          {mounted ? t("menu.categories.vegetarian") : "Vegetarian Dishes"}
                         </h2>
                         <div className="grid gap-8">
                           {foodMenu.vegetarianDishes.map((item, index) => (
@@ -406,7 +424,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Desserts
+                          {mounted ? t("menu.categories.desserts") : "Desserts"}
                         </h2>
                         <div className="grid gap-8">
                           {foodMenu.desserts.map((item, index) => (
@@ -455,10 +473,22 @@ export default function MenuClientPage() {
                             }`}
                           >
                             {category === "softDrinks"
-                              ? "Soft Drinks"
+                              ? mounted ? t("menu.categories.softDrinks") : "Soft Drinks"
                               : category === "hotDrinks"
-                                ? "Hot Drinks"
-                                : category.charAt(0).toUpperCase() + category.slice(1)}
+                                ? mounted ? t("menu.categories.hotDrinks") : "Hot Drinks"
+                                : category === "whisky"
+                                  ? mounted ? t("menu.categories.whisky") : "Whisky"
+                                  : category === "beers"
+                                    ? mounted ? t("menu.categories.beers") : "Beers"
+                                    : category === "spirits"
+                                      ? mounted ? t("menu.categories.spirits") : "Spirits"
+                                      : category === "cognac"
+                                        ? mounted ? t("menu.categories.cognac") : "Cognac"
+                                        : category === "rum"
+                                          ? mounted ? t("menu.categories.rum") : "Rum"
+                                          : category === "wines"
+                                            ? mounted ? t("menu.categories.wines") : "Wines"
+                                            : category.charAt(0).toUpperCase() + category.slice(1)}
                           </button>
                         ),
                       )}
@@ -472,7 +502,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Whisky
+                          {mounted ? t("menu.categories.whisky") : "Whisky"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.whisky.map((item, index) => (
@@ -494,7 +524,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Beers
+                          {mounted ? t("menu.categories.beers") : "Beers"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.beers.map((item, index) => (
@@ -515,7 +545,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Spirits
+                          {mounted ? t("menu.categories.spirits") : "Spirits"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.spirits.map((item, index) => (
@@ -536,7 +566,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Cognac
+                          {mounted ? t("menu.categories.cognac") : "Cognac"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.cognac.map((item, index) => (
@@ -557,7 +587,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Rum
+                          {mounted ? t("menu.categories.rum") : "Rum"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.rum.map((item, index) => (
@@ -578,7 +608,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Wines
+                          {mounted ? t("menu.categories.wines") : "Wines"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.wines.map((item, index) => (
@@ -599,7 +629,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Soft Drinks
+                          {mounted ? t("menu.categories.softDrinks") : "Soft Drinks"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.softDrinks.map((item, index) => (
@@ -620,7 +650,7 @@ export default function MenuClientPage() {
                         transition={{ duration: 0.5 }}
                       >
                         <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          Hot Drinks
+                          {mounted ? t("menu.categories.hotDrinks") : "Hot Drinks"}
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.hotDrinks.map((item, index) => (

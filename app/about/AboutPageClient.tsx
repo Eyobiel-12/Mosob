@@ -23,7 +23,14 @@ export default function AboutPageClient() {
     "about.faq.reservation",
     "about.faq.reservationAnswer",
     "about.faq.halal",
-    "about.faq.halalAnswer"
+    "about.faq.halalAnswer",
+    "about.team.title",
+    "about.team.chef.name",
+    "about.team.chef.role",
+    "about.team.chef.description",
+    "about.team.barman.name",
+    "about.team.barman.role",
+    "about.team.barman.description"
   ])
   const [mounted, setMounted] = useState(false)
 
@@ -72,8 +79,88 @@ export default function AboutPageClient() {
                   : "Where the rich flavors of Eritrea come to life! We are passionate about sharing our culture and culinary traditions with our guests."}
               </p>
             </motion.div>
+          </div>
+        </div>
+      </section>
 
-            <div className="grid md:grid-cols-2 gap-12 items-center mt-16">
+      {/* Team Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-neutral-900">
+                {mounted ? t("about.team.title") : "Meet Our Team"}
+              </h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="relative w-64 h-64 mx-auto mb-6 rounded-full overflow-hidden">
+                  <Image
+                    src="/chef.jpeg"
+                    alt={mounted ? t("about.team.chef.name") : "Azeb"}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-2xl font-serif font-bold mb-2 text-neutral-900">
+                  {mounted ? t("about.team.chef.name") : "Azeb"}
+                </h3>
+                <p className="text-gold-500 font-medium mb-4">
+                  {mounted ? t("about.team.chef.role") : "Head Chef"}
+                </p>
+                <p className="text-neutral-700">
+                  {mounted ? t("about.team.chef.description") : "With years of experience in Eritrean cuisine, Azeb brings authentic flavors and traditional cooking techniques to every dish."}
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="relative w-64 h-64 mx-auto mb-6 rounded-full overflow-hidden">
+                  <Image
+                    src="/bar.jpeg"
+                    alt={mounted ? t("about.team.barman.name") : "Tesfit"}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-2xl font-serif font-bold mb-2 text-neutral-900">
+                  {mounted ? t("about.team.barman.name") : "Tesfit"}
+                </h3>
+                <p className="text-gold-500 font-medium mb-4">
+                  {mounted ? t("about.team.barman.role") : "Bar Manager"}
+                </p>
+                <p className="text-neutral-700">
+                  {mounted ? t("about.team.barman.description") : "Tesfit creates the perfect atmosphere with his expertly crafted cocktails and extensive knowledge of beverages."}
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
