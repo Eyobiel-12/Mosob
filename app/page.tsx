@@ -49,12 +49,8 @@ export default function Home() {
     "home.testimonials.quote3",
     "home.testimonials.author3",
     "home.testimonials.title3",
-    "menu.meat.zigni.name",
-    "menu.meat.zigni.description",
-    "menu.meat.goredGored.name",
-    "menu.meat.goredGored.description",
-    "menu.vegetarian.shiro.name",
-    "menu.vegetarian.shiro.description"
+    "menu.meat.derho.name",
+    "menu.meat.derho.description"
   ])
   const [mounted, setMounted] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -274,28 +270,24 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-12">
             {[
               {
-                name: mounted ? t("menu.meat.zigni.name") : "Zigni",
+                name: mounted ? t("menu.meat.derho.name") : "Derho",
                 description: mounted
-                  ? t("menu.meat.zigni.description")
-                  : "Prime beef tenderloin simmered in a complex berbere spice blend",
+                  ? t("menu.meat.derho.description")
+                  : "Free-range chicken legs delicately braised in a vibrant red sauce infused with aromatic herbs",
                 price: "€16.50",
-                image: "https://media-cdn.tripadvisor.com/media/photo-s/1b/25/3a/af/zigni-beef-stew-alicha.jpg",
+                image: "/derho.jpeg",
               },
               {
-                name: mounted ? t("menu.meat.goredGored.name") : "Gored Gored",
-                description: mounted
-                  ? t("menu.meat.goredGored.description")
-                  : "Lamb medallions delicately cooked with Ethiopian butter",
+                name: "Mix Veganistische Mosob Asmara",
+                description: "Een zorgvuldig samengestelde selectie van drie vegetarische specialiteiten, die de diversiteit van de Eritrese plantaardige keuken laat zien",
                 price: "€20.00",
-                image: "https://mesobrestaurant.no/wp-content/uploads/2023/01/WhatsApp-Image-2023-01-19-at-22.27.34-2-300x300.jpeg",
+                image: "/Mix Veganistische Mosob Asmara.jpeg",
               },
               {
-                name: mounted ? t("menu.vegetarian.shiro.name") : "Shiro",
-                description: mounted
-                  ? t("menu.vegetarian.shiro.description")
-                  : "Velvety puree of heirloom legumes, simmered with garlic",
+                name: "Combinatie van vlees gerechten",
+                description: "Een zorgvuldig samengestelde selectie van drie kenmerkende vleesbereidingen, die een reis door de Eritrese culinaire tradities biedt",
                 price: "€15.00",
-                image: "https://www.brundo.com/cdn/shop/products/Shouro_4e1bc69f-ee8f-499e-b675-e201c6e4f088.jpg?v=1653667722&width=1445",
+                image: "/denist.jpeg",
               },
             ].map((dish, index) => (
               <motion.div
@@ -477,5 +469,4 @@ export default function Home() {
       </section>
     </div>
   )
-}
-
+} 
