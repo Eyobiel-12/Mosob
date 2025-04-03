@@ -287,7 +287,7 @@ export default function Home() {
                 name: "Combinatie van vlees gerechten",
                 description: "Een zorgvuldig samengestelde selectie van drie kenmerkende vleesbereidingen, die een reis door de Eritrese culinaire tradities biedt",
                 price: "€45.00",
-                image: "",
+                image: "/placeholder.svg",
               },
             ].map((dish, index) => (
               <motion.div
