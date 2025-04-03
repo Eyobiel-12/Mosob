@@ -73,6 +73,11 @@ const foodMenu = {
       description: "Combination of 3 meat dishes (choose from numbers 1,2 and 3or 6)",
       price: "€45.50",
     },
+    {
+      name: "Combinatie van vlees gerechten",
+      description: "Een zorgvuldig samengestelde selectie van drie kenmerkende vleesbereidingen, die een reis door de Eritrese culinaire tradities biedt",
+      price: "€45.50",
+    },
   ],
   fishDishes: [
     {
@@ -131,6 +136,11 @@ const foodMenu = {
       name: "Ma Mix Vegetarisch",
       description: "Combination of max. 3 Mosob Asmara vegetarian dishes (15,16 and 17 or 18 and 19)",
       price: "€43.50",
+    },
+    {
+      name: "Mix Veganistische Mosob Asmara",
+      description: "Een zorgvuldig samengestelde selectie van drie vegetarische specialiteiten, die de diversiteit van de Eritrese plantaardige keuken laat zien",
+      price: "€20.00",
     },
   ],
   desserts: [
