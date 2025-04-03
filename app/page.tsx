@@ -95,7 +95,7 @@ export default function Home() {
   const discoverMore = mounted ? t("home.hero.discoverMore") : "Discover More"
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" suppressHydrationWarning>
       {/* Hero Section with Carousel */}
       <section className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-black/50 z-10" />
@@ -287,7 +287,7 @@ export default function Home() {
                 name: "Combinatie van vlees gerechten",
                 description: "Een zorgvuldig samengestelde selectie van drie kenmerkende vleesbereidingen, die een reis door de Eritrese culinaire tradities biedt",
                 price: "€45.50",
-                image: "/placeholder.svg",
+                image: "/denist.jpeg",
               },
             ].map((dish, index) => (
               <motion.div

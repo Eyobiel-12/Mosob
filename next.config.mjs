@@ -21,6 +21,8 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  // Disable server-side rendering for improved client-side only components
+  reactStrictMode: false,
 }
 
 mergeConfig(nextConfig, userConfig)
