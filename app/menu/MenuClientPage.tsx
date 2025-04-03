@@ -6,22 +6,8 @@ import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import { useValidatedTranslations } from "@/lib/i18n/use-validated-translations"
 
-// TypeScript interface for menu items
-interface MenuItem {
-  name: string;
-  description: string;
-  price: string;
-  image?: string;
-}
-
 // Menu data extracted from the provided images
-const foodMenu: {
-  appetizers: MenuItem[];
-  meatDishes: MenuItem[];
-  fishDishes: MenuItem[];
-  vegetarianDishes: MenuItem[];
-  desserts: MenuItem[];
-} = {
+const foodMenu = {
   appetizers: [
     { name: "Brisin/Linzen Soep", description: "Lentil soup with spring onions, fresh tomatoes and curry", price: "€6.00" },
     { name: "Duba/Pompoen (Soep)", description: "Pumpkin with onions, garlic and Mosob Asmara spices", price: "€6.00" },
@@ -33,10 +19,9 @@ const foodMenu: {
   ],
   meatDishes: [
     {
-      name: "Combinatie van vlees gerechten",
-      description: "Combination of meat dishes with traditional Eritrean flavors",
-      price: "€45.50",
-      image: "/denist.jpeg"
+      name: "Zigni",
+      description: "Beef hot and rich in spices",
+      price: "€16.50",
     },
     {
       name: "Derho",
@@ -348,9 +333,9 @@ export default function MenuClientPage() {
                         <div className="grid gap-8">
                           {foodMenu.appetizers.map((item, index) => (
                             <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex justify-between mb-2">
+                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
                                 <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500">{item.price}</span>
+                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                               </div>
                               <p className="text-neutral-600">{item.description}</p>
                             </div>
@@ -372,21 +357,10 @@ export default function MenuClientPage() {
                         <div className="grid gap-8">
                           {foodMenu.meatDishes.map((item, index) => (
                             <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex justify-between mb-2">
+                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
                                 <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500">{item.price}</span>
+                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                               </div>
-                              {item.image && (
-                                <div className="mb-4">
-                                  <Image
-                                    src={item.image}
-                                    alt={item.name}
-                                    width={300}
-                                    height={200}
-                                    className="rounded-md object-cover w-full h-48"
-                                  />
-                                </div>
-                              )}
                               <p className="text-neutral-600">{item.description}</p>
                             </div>
                           ))}
@@ -407,9 +381,9 @@ export default function MenuClientPage() {
                         <div className="grid gap-8">
                           {foodMenu.fishDishes.map((item, index) => (
                             <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex justify-between mb-2">
+                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
                                 <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500">{item.price}</span>
+                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                               </div>
                               <p className="text-neutral-600">{item.description}</p>
                             </div>
@@ -431,9 +405,9 @@ export default function MenuClientPage() {
                         <div className="grid gap-8">
                           {foodMenu.vegetarianDishes.map((item, index) => (
                             <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex justify-between mb-2">
+                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
                                 <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500">{item.price}</span>
+                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                               </div>
                               <p className="text-neutral-600">{item.description}</p>
                             </div>
@@ -455,9 +429,9 @@ export default function MenuClientPage() {
                         <div className="grid gap-8">
                           {foodMenu.desserts.map((item, index) => (
                             <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex justify-between mb-2">
+                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
                                 <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500">{item.price}</span>
+                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                               </div>
                               <p className="text-neutral-600">{item.description}</p>
                             </div>
@@ -532,16 +506,15 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.whisky.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
                       </motion.div>
                     )}
 
-                    {/* Similar blocks for other drink categories */}
                     {selectedDrinkCategory === "beers" && (
                       <motion.div
                         initial={{ opacity: 0 }}
@@ -554,9 +527,9 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.beers.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
@@ -575,9 +548,9 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.spirits.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
@@ -596,9 +569,9 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.cognac.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
@@ -617,9 +590,9 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.rum.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
@@ -638,9 +611,9 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.wines.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
@@ -659,9 +632,9 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.softDrinks.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
@@ -680,9 +653,9 @@ export default function MenuClientPage() {
                         </h2>
                         <div className="grid gap-4">
                           {drinksMenu.hotDrinks.map((item, index) => (
-                            <div key={index} className="flex justify-between border-b border-neutral-100 pb-4">
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between border-b border-neutral-100 pb-4">
                               <h3 className="font-medium">{item.name}</h3>
-                              <span className="font-medium text-gold-500">{item.price}</span>
+                              <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
                             </div>
                           ))}
                         </div>
