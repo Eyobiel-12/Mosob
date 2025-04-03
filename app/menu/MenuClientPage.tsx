@@ -6,8 +6,22 @@ import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import { useValidatedTranslations } from "@/lib/i18n/use-validated-translations"
 
+// TypeScript interface for menu items
+interface MenuItem {
+  name: string;
+  description: string;
+  price: string;
+  image?: string;
+}
+
 // Menu data extracted from the provided images
-const foodMenu = {
+const foodMenu: {
+  appetizers: MenuItem[];
+  meatDishes: MenuItem[];
+  fishDishes: MenuItem[];
+  vegetarianDishes: MenuItem[];
+  desserts: MenuItem[];
+} = {
   appetizers: [
     { name: "Brisin/Linzen Soep", description: "Lentil soup with spring onions, fresh tomatoes and curry", price: "€6.00" },
     { name: "Duba/Pompoen (Soep)", description: "Pumpkin with onions, garlic and Mosob Asmara spices", price: "€6.00" },
@@ -19,9 +33,10 @@ const foodMenu = {
   ],
   meatDishes: [
     {
-      name: "Zigni",
-      description: "Beef hot and rich in spices",
-      price: "€16.50",
+      name: "Combinatie van vlees gerechten",
+      description: "Combination of meat dishes with traditional Eritrean flavors",
+      price: "€45.50",
+      image: "/denist.jpeg"
     },
     {
       name: "Derho",
@@ -361,6 +376,17 @@ export default function MenuClientPage() {
                                 <h3 className="font-serif font-medium text-lg">{item.name}</h3>
                                 <span className="font-medium text-gold-500">{item.price}</span>
                               </div>
+                              {item.image && (
+                                <div className="mb-4">
+                                  <Image
+                                    src={item.image}
+                                    alt={item.name}
+                                    width={300}
+                                    height={200}
+                                    className="rounded-md object-cover w-full h-48"
+                                  />
+                                </div>
+                              )}
                               <p className="text-neutral-600">{item.description}</p>
                             </div>
                           ))}
