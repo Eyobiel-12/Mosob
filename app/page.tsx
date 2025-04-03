@@ -274,19 +274,19 @@ export default function Home() {
                 description: mounted
                   ? t("menu.meat.derho.description")
                   : "Free-range chicken legs delicately braised in a vibrant red sauce infused with aromatic herbs",
-                price: "€16.50",
+                     price: "",
                 image: "/derho.jpeg",
               },
               {
                 name: "Mix Veganistische Mosob Asmara",
                 description: "Een zorgvuldig samengestelde selectie van drie vegetarische specialiteiten, die de diversiteit van de Eritrese plantaardige keuken laat zien",
-                price: "€20.00",
+               
                 image: "/mix-veganistische.jpeg",
               },
               {
                 name: "Combinatie van vlees gerechten",
                 description: "Een zorgvuldig samengestelde selectie van drie kenmerkende vleesbereidingen, die een reis door de Eritrese culinaire tradities biedt",
-                price: "€45.50",
+                
                 image: "/denist.jpeg",
               },
             ].map((dish, index) => (
