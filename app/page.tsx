@@ -281,7 +281,7 @@ export default function Home() {
                 name: "Mix Veganistische Mosob Asmara",
                 description: "Een zorgvuldig samengestelde selectie van drie vegetarische specialiteiten, die de diversiteit van de Eritrese plantaardige keuken laat zien",
                 price: "€20.00",
-                image: "/Mix Veganistische Mosob Asmara.jpeg",
+                image: "/mix-veganistische.jpeg",
               },
               {
                 name: "Combinatie van vlees gerechten",
