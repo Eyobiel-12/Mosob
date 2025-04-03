@@ -286,8 +286,8 @@ export default function Home() {
               {
                 name: "Combinatie van vlees gerechten",
                 description: "Een zorgvuldig samengestelde selectie van drie kenmerkende vleesbereidingen, die een reis door de Eritrese culinaire tradities biedt",
-                price: "€15.00",
-                image: "/denist.jpeg",
+                price: "€45.00",
+                image: "",
               },
             ].map((dish, index) => (
               <motion.div
