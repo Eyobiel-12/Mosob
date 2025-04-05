@@ -74,43 +74,43 @@ const galleryData: GalleryData = {
     { 
       src: "https://res.cloudinary.com/tf-lab/image/upload/w_1920,c_fill,q_auto,f_auto/restaurant/073fa10c-e7c1-43cf-9af7-33b264e0d24d/5fc53658-2511-4592-8a2c-3e3c6688bda2.jpg", 
       alt: "Zigni Dish", 
-      caption: "Zigni - Our signature beef dish",
+      caption: "Zigni - Spicy beef stew with berbere sauce",
       type: "image" 
     },
     { 
       src: "https://res.cloudinary.com/tf-lab/image/upload/w_1920,c_fill,q_auto,f_auto/restaurant/073fa10c-e7c1-43cf-9af7-33b264e0d24d/3d3638ab-4324-40ba-b40a-364f643cb19e.jpg", 
       alt: "Injera Platter", 
-      caption: "Traditional injera with various toppings",
+      caption: "Traditional injera with colorful vegetable and meat toppings",
       type: "image" 
     },
     { 
       src: "https://res.cloudinary.com/tf-lab/image/upload/w_1920,c_fill,q_auto,f_auto/restaurant/073fa10c-e7c1-43cf-9af7-33b264e0d24d/02329317-baea-4061-9ca7-0387cebc49fc.jpg", 
       alt: "Vegetarian Platter", 
-      caption: "Vegetarian selection",
+      caption: "Vegetarian platter with lentils, potatoes and vegetables",
       type: "image" 
     },
     { 
       src: "https://res.cloudinary.com/tf-lab/image/upload/w_1920,c_fill,q_auto,f_auto/restaurant/073fa10c-e7c1-43cf-9af7-33b264e0d24d/8d396c92-c839-4681-aac3-fcc027a57705.jpg", 
       alt: "Special Platter", 
-      caption: "Chef's special platter",
+      caption: "Mosob Special - A combination of our best dishes",
       type: "image" 
     },
     { 
       src: "https://res.cloudinary.com/tf-lab/image/upload/w_1920,c_fill,q_auto,f_auto/restaurant/073fa10c-e7c1-43cf-9af7-33b264e0d24d/a1b9e4fd-bcfc-4759-82c1-447cfaa09a51.jpg", 
-      alt: "Gored Gored", 
-      caption: "Gored Gored - Traditional delicacy",
+      alt: "Kitfo", 
+      caption: "Kitfo - Spiced minced beef served with cottage cheese",
       type: "image" 
     },
     { 
       src: "https://res.cloudinary.com/tf-lab/image/upload/w_1920,c_fill,q_auto,f_auto/restaurant/073fa10c-e7c1-43cf-9af7-33b264e0d24d/a892bff6-6bc5-4430-8b36-6b9313ddbb6a.jpg", 
       alt: "Shiro", 
-      caption: "Shiro - Creamy legume dish",
+      caption: "Shiro - Spiced chickpea stew with injera",
       type: "image" 
     },
     { 
       src: "https://res.cloudinary.com/tf-lab/image/upload/w_1920,c_fill,q_auto,f_auto/restaurant/073fa10c-e7c1-43cf-9af7-33b264e0d24d/1743f830-f102-46f5-939b-e0416ba4c44c.jpg", 
       alt: "Eritrean Sampler", 
-      caption: "Variety of Eritrean specialties",
+      caption: "Beyaynetu - Colorful vegetarian and meat combination",
       type: "image" 
     },
     { 
