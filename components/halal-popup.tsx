@@ -1,23 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import Image from "next/image"
+import { useState } from "react"
 
 export default function HalalPopup() {
   const [isOpen, setIsOpen] = useState(true)
-
-  useEffect(() => {
-    // Check if the popup has been shown in this session
-    const hasSeenPopup = sessionStorage.getItem("hasSeenHalalPopup")
-    if (hasSeenPopup) {
-      setIsOpen(false)
-    } else {
-      // Set a flag in sessionStorage to remember that the user has seen the popup
-      sessionStorage.setItem("hasSeenHalalPopup", "true")
-    }
-  }, [])
 
   if (!isOpen) return null
 
