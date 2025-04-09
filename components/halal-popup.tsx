@@ -42,9 +42,6 @@ export default function HalalPopup() {
             </div>
             <div className="flex-1">
               <h3 className="font-semibold text-lg text-neutral-900">100% Halal Certified</h3>
-              <p className="text-sm text-neutral-600 mt-1">
-                All our food is prepared according to Islamic dietary laws
-              </p>
             </div>
           </div>
           <button
