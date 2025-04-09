@@ -9,13 +9,13 @@ export default function HalalPopup() {
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    // Check if the popup has been shown before
-    const hasSeenPopup = localStorage.getItem("hasSeenHalalPopup")
+    // Check if the popup has been shown in this session
+    const hasSeenPopup = sessionStorage.getItem("hasSeenHalalPopup")
     if (hasSeenPopup) {
       setIsOpen(false)
     } else {
-      // Set a flag in localStorage to remember that the user has seen the popup
-      localStorage.setItem("hasSeenHalalPopup", "true")
+      // Set a flag in sessionStorage to remember that the user has seen the popup
+      sessionStorage.setItem("hasSeenHalalPopup", "true")
     }
   }, [])
 
@@ -31,15 +31,16 @@ export default function HalalPopup() {
       >
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
-            <div className="relative w-12 h-12">
+            <div className="relative w-16 h-16">
               <Image
-                src="/logo.png"
+                src="/logo.jpeg"
                 alt="Mosob Asmara Logo"
                 fill
-                className="object-contain"
+                className="object-contain rounded-full"
+                priority
               />
             </div>
-            <div>
+            <div className="flex-1">
               <h3 className="font-semibold text-lg text-neutral-900">100% Halal Certified</h3>
               <p className="text-sm text-neutral-600 mt-1">
                 All our food is prepared according to Islamic dietary laws
