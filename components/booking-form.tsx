@@ -246,13 +246,20 @@ export function BookingForm() {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
+                      disabled={(date) => {
+                        // Disable dates in the past
+                        if (date < new Date()) return true;
+                        
+                        // Disable Wednesdays (Wednesday is day 3, where Sunday is day 0)
+                        return date.getDay() === 3;
+                      }}
                       initialFocus
                       className="border-gold-200"
                     />
                   </PopoverContent>
                 </Popover>
                 <FormMessage />
+                <p className="text-sm text-neutral-500 mt-1">Note: We don't take reservations on Wednesdays.</p>
               </FormItem>
             )}
           />
