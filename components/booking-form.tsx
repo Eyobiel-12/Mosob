@@ -122,10 +122,10 @@ export function BookingForm() {
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text)
-        toast.success(mounted ? t("booking.form.success.title") : "Reservation Confirmed", {
+        toast.success(mounted ? "Reservation Request Received" : "Reservation Request Received", {
           description: mounted 
-            ? t("booking.form.success.description") 
-            : `Your table for ${values.guests} on ${format(values.date, "PPP")} at ${values.time} has been reserved. You'll receive a confirmation email shortly.`,
+            ? `Your request for ${values.guests} on ${format(values.date, "PPP")} at ${values.time} has been sent. We'll confirm your reservation shortly via email or phone.`
+            : `Your request for ${values.guests} on ${format(values.date, "PPP")} at ${values.time} has been sent. We'll confirm your reservation shortly via email or phone.`,
           duration: 5000,
           className: "bg-white text-neutral-900 border border-gold-200",
           style: {
@@ -378,9 +378,12 @@ export function BookingForm() {
             className="w-full bg-gold-500 hover:bg-gold-600 text-black rounded-none py-6 text-base"
             disabled={isSubmitting}
           >
-            {isSubmitting ? t("booking.form.processing") : t("booking.form.submit")}
+            {isSubmitting ? t("booking.form.processing") : "Request Reservation"}
           </Button>
         </motion.div>
+        <p className="text-sm text-center text-neutral-500 mt-2">
+          Reservations require confirmation from our staff. You'll receive a confirmation email or call shortly.
+        </p>
       </form>
     </Form>
   )
