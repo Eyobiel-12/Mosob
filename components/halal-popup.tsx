@@ -3,10 +3,21 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function HalalPopup() {
   const [isOpen, setIsOpen] = useState(true)
+
+  // Auto-close the popup after 3 seconds
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => {
+        setIsOpen(false)
+      }, 3000) // 3 seconds
+      
+      return () => clearTimeout(timer)
+    }
+  }, [isOpen])
 
   if (!isOpen) return null
 
