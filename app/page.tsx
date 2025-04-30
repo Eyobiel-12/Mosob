@@ -11,6 +11,7 @@ import { useValidatedTranslations } from "@/lib/i18n/use-validated-translations"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { Playfair_Display } from "next/font/google"
 import HalalPopup from "@/components/halal-popup"
+import AwardBadge from "@/components/award-badge"
 
 // For enhanced typography
 const playfair = Playfair_Display({
@@ -98,6 +99,7 @@ export default function Home() {
   return (
     <main>
       <HalalPopup />
+      <AwardBadge />
       <div className="flex flex-col" suppressHydrationWarning>
         {/* Hero Section with Carousel */}
         <section className="relative h-screen w-full overflow-hidden">
