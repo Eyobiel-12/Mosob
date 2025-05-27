@@ -247,8 +247,10 @@ export function BookingForm() {
                       selected={field.value}
                       onSelect={field.onChange}
                       disabled={(date) => {
-                        // Disable dates in the past
-                        if (date < new Date()) return true;
+                        // Disable dates before today (not including today)
+                        const today = new Date()
+                        today.setHours(0, 0, 0, 0)
+                        if (date < today) return true;
                         
                         // Disable Wednesdays (Wednesday is day 3, where Sunday is day 0)
                         return date.getDay() === 3;
