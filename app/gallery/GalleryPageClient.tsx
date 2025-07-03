@@ -125,6 +125,42 @@ const galleryData: GalleryData = {
       caption: "Sweet treats to finish your meal",
       type: "image" 
     },
+    { 
+      src: "/WhatsApp Image 2025-06-27 at 12.26.13.jpeg", 
+      alt: "Traditioneel gerecht 1", 
+      caption: "Traditioneel gerecht Mosob Asmara", 
+      type: "image" 
+    },
+    { 
+      src: "/WhatsApp Image 2025-06-27 at 18.05.33.jpeg", 
+      alt: "Traditioneel gerecht 2", 
+      caption: "Traditioneel gerecht Mosob Asmara", 
+      type: "image" 
+    },
+    { 
+      src: "/WhatsApp Image 2025-06-27 at 18.05.34 (1).jpeg", 
+      alt: "Traditioneel gerecht 3", 
+      caption: "Traditioneel gerecht Mosob Asmara", 
+      type: "image" 
+    },
+    { 
+      src: "/WhatsApp Image 2025-06-27 at 18.05.34 (2).jpeg", 
+      alt: "Traditioneel gerecht 4", 
+      caption: "Traditioneel gerecht Mosob Asmara", 
+      type: "image" 
+    },
+    { 
+      src: "/WhatsApp Image 2025-06-27 at 18.05.34.jpeg", 
+      alt: "Traditioneel gerecht 5", 
+      caption: "Traditioneel gerecht Mosob Asmara", 
+      type: "image" 
+    },
+    { 
+      src: "/WhatsApp Image 2025-06-27 at 18.05.35.jpeg", 
+      alt: "Traditioneel gerecht 6", 
+      caption: "Traditioneel gerecht Mosob Asmara", 
+      type: "image" 
+    },
   ],
   events: [
     { 
