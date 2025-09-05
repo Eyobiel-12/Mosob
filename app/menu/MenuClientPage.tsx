@@ -295,13 +295,35 @@ export default function MenuClientPage() {
             <div className="grid gap-16">
               <div className="relative">
                 <div className="hidden md:block">
-                  <Image
-                    src="/menu.jpeg"
-                    alt="Mosob Asmara Food Menu"
-                    width={800}
-                    height={1200}
-                    className="mx-auto rounded-lg shadow-lg"
-                  />
+                  <div className="w-full max-w-5xl mx-auto">
+                    <div className="bg-white rounded-lg shadow-lg p-4">
+                      <div className="mb-4 text-center">
+                        <h3 className="text-xl font-serif font-medium text-neutral-900 mb-2">
+                          {mounted ? t("menu.hero.title") : "Our Menu"}
+                        </h3>
+                        <p className="text-sm text-neutral-600">
+                          {mounted ? "Click to view full menu" : "Click to view full menu"}
+                        </p>
+                      </div>
+                      <iframe
+                        src="/Mosob Asmara Food Menu (Landscape) V-1.pdf#toolbar=1&navpanes=1&scrollbar=1"
+                        width="100%"
+                        height="900"
+                        className="rounded-lg border-0"
+                        title="Mosob Asmara Food Menu"
+                      />
+                      <div className="mt-4 text-center">
+                        <a
+                          href="/Mosob Asmara Food Menu (Landscape) V-1.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black font-medium rounded-none transition-colors duration-300"
+                        >
+                          {mounted ? "Download Menu PDF" : "Download Menu PDF"}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="md:hidden">
