@@ -482,7 +482,7 @@ export default function MenuClientPage() {
               <div className="relative">
                 <div className="hidden md:block">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/menu-3-standard.jpg-787D9J265tni28ubvkPVMVlQYVW8Dx.jpeg"
+                    src="/Drink Menu Web.jpg"
                     alt="Mosob Asmara Drinks Menu"
                     width={800}
                     height={1200}
