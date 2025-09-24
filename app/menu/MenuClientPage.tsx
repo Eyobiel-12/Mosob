@@ -295,183 +295,23 @@ export default function MenuClientPage() {
             <div className="grid gap-16">
               <div className="relative">
                 <div className="hidden md:block">
-                  <div className="w-full max-w-5xl mx-auto">
-                    <div className="bg-white rounded-lg shadow-lg p-4">
-                      <div className="mb-4 text-center">
-                        <h3 className="text-xl font-serif font-medium text-neutral-900 mb-2">
-                          {mounted ? t("menu.hero.title") : "Our Menu"}
-                        </h3>
-                        <p className="text-sm text-neutral-600">
-                          {mounted ? "Click to view full menu" : "Click to view full menu"}
-                        </p>
-                      </div>
-                      <iframe
-                        src="/Mosob Asmara Food Menu (Landscape) V-1.pdf#toolbar=1&navpanes=1&scrollbar=1"
-                        width="100%"
-                        height="900"
-                        className="rounded-lg border-0"
-                        title="Mosob Asmara Food Menu"
-                      />
-                      <div className="mt-4 text-center">
-                        <a
-                          href="/Mosob Asmara Food Menu (Landscape) V-1.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center px-6 py-3 bg-gold-500 hover:bg-gold-600 text-black font-medium rounded-none transition-colors duration-300"
-                        >
-                          {mounted ? "Download Menu PDF" : "Download Menu PDF"}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  <Image
+                    src="/Food Menu Web.jpg"
+                    alt="Mosob Asmara Food Menu"
+                    width={1000}
+                    height={1400}
+                    className="mx-auto rounded-lg shadow-lg"
+                  />
                 </div>
 
                 <div className="md:hidden">
-                  <div className="mb-8">
-                    <div className="flex justify-center space-x-4 overflow-x-auto pb-4 mb-8">
-                      {["appetizers", "meatDishes", "fishDishes", "vegetarianDishes", "desserts"].map((category) => (
-                        <button
-                          key={category}
-                          onClick={() => setSelectedCategory(category)}
-                          className={`whitespace-nowrap px-4 py-2 font-medium transition-colors ${
-                            selectedCategory === category
-                              ? "text-gold-500 border-b-2 border-gold-500"
-                              : "text-neutral-500 hover:text-neutral-800"
-                          }`}
-                        >
-                          {category === "meatDishes"
-                            ? mounted ? t("menu.categories.meat") : "Meat"
-                            : category === "fishDishes"
-                              ? mounted ? t("menu.categories.fish") : "Fish"
-                              : category === "vegetarianDishes"
-                                ? mounted ? t("menu.categories.vegetarian") : "Vegetarian"
-                                : category === "appetizers"
-                                  ? mounted ? t("menu.categories.appetizers") : "Appetizers"
-                                  : mounted ? t("menu.categories.desserts") : "Desserts"}
-                        </button>
-                      ))}
-                    </div>
-
-                    {selectedCategory === "appetizers" && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          {mounted ? t("menu.categories.appetizers") : "Appetizers"}
-                        </h2>
-                        <div className="grid gap-8">
-                          {foodMenu.appetizers.map((item, index) => (
-                            <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
-                                <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
-                              </div>
-                              <p className="text-neutral-600">{item.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {selectedCategory === "meatDishes" && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          {mounted ? t("menu.categories.meat") : "Meat Dishes"}
-                        </h2>
-                        <div className="grid gap-8">
-                          {foodMenu.meatDishes.map((item, index) => (
-                            <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
-                                <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
-                              </div>
-                              <p className="text-neutral-600">{item.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {selectedCategory === "fishDishes" && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          {mounted ? t("menu.categories.fish") : "Fish Dishes"}
-                        </h2>
-                        <div className="grid gap-8">
-                          {foodMenu.fishDishes.map((item, index) => (
-                            <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
-                                <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
-                              </div>
-                              <p className="text-neutral-600">{item.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {selectedCategory === "vegetarianDishes" && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          {mounted ? t("menu.categories.vegetarian") : "Vegetarian Dishes"}
-                        </h2>
-                        <div className="grid gap-8">
-                          {foodMenu.vegetarianDishes.map((item, index) => (
-                            <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
-                                <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
-                              </div>
-                              <p className="text-neutral-600">{item.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {selectedCategory === "desserts" && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6 pb-2 border-b border-neutral-200">
-                          {mounted ? t("menu.categories.desserts") : "Desserts"}
-                        </h2>
-                        <div className="grid gap-8">
-                          {foodMenu.desserts.map((item, index) => (
-                            <div key={index} className="border-b border-neutral-100 pb-6">
-                              <div className="flex flex-col sm:flex-row sm:justify-between mb-2">
-                                <h3 className="font-serif font-medium text-lg">{item.name}</h3>
-                                <span className="font-medium text-gold-500 mt-1 sm:mt-0">{item.price}</span>
-                              </div>
-                              <p className="text-neutral-600">{item.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </div>
+                  <Image
+                    src="/Food Menu Web.jpg"
+                    alt="Mosob Asmara Food Menu"
+                    width={800}
+                    height={1400}
+                    className="mx-auto rounded-lg shadow-lg"
+                  />
                 </div>
               </div>
             </div>
