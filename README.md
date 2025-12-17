@@ -1,3 +1,39 @@
+# Mosob Asmara Restaurant Website
+
+## Admin Panel
+
+The website includes an admin panel for managing reservations and blocking dates.
+
+### Access
+- URL: `/admin`
+- Default Password: `mosob2025`
+
+### Environment Variable
+
+To set a custom admin password, create a `.env.local` file in the root directory:
+
+```bash
+NEXT_PUBLIC_ADMIN_PASSWORD=your_secure_password_here
+```
+
+If the environment variable is not set, it defaults to `mosob2025`.
+
+**Note:** The `.env.local` file is already in `.gitignore` and will not be committed to the repository.
+
+### Features
+- View all reservations
+- Edit reservation details (name, email, phone, date, time, guests, status, etc.)
+- Delete reservations
+- Block/unblock specific dates to prevent reservations
+- Change reservation status (pending, confirmed, cancelled)
+
+### Data Storage
+- Reservations are stored in `/data/reservations.json`
+- Blocked dates are stored in `/data/blocked-dates.json`
+- Both files are automatically created when needed
+
+---
+
 # Translation Validation System
 
 ## Overview
