@@ -6,14 +6,7 @@ import Link from "next/link"
 import { useLanguage } from "@/lib/i18n/context"
 import { useValidatedTranslations } from "@/lib/i18n/use-validated-translations"
 import { useState, useEffect } from "react"
-import { Playfair_Display } from "next/font/google"
 import Image from "next/image"
-
-// For enhanced typography
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-})
 
 export default function Footer() {
   const { t, language } = useValidatedTranslations("Footer", [
@@ -76,7 +69,7 @@ export default function Footer() {
             <div className="absolute -bottom-1 -left-1 w-6 h-6 border border-gold-500/30 rounded-full"></div>
           </div>
 
-          <h3 className={`${playfair.className} text-3xl font-bold mb-6 tracking-wide`}>Mosob Asmara</h3>
+          <h3 className="font-serif text-3xl font-bold mb-6 tracking-wide">Mosob Asmara</h3>
           <div className="w-20 h-0.5 bg-gold-500 mx-auto mb-8"></div>
           <p className="mb-8 text-neutral-400 leading-relaxed max-w-xl mx-auto">
             {mounted
@@ -102,7 +95,7 @@ export default function Footer() {
         {/* Main footer content */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 border-t border-neutral-800 pt-16">
           <div className="lg:col-span-1">
-            <h3 className={`${playfair.className} text-xl font-bold mb-8 tracking-wide`}>
+            <h3 className="font-serif text-xl font-bold mb-8 tracking-wide">
               {mounted ? t("footer.contact") : "Contact"}
             </h3>
             <div className="space-y-6">
@@ -138,7 +131,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-1">
-            <h3 className={`${playfair.className} text-xl font-bold mb-8 tracking-wide`}>
+            <h3 className="font-serif text-xl font-bold mb-8 tracking-wide">
               {mounted ? t("footer.hours") : "Hours"}
             </h3>
             <div className="space-y-4">
@@ -166,7 +159,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-1">
-            <h3 className={`${playfair.className} text-xl font-bold mb-8 tracking-wide`}>
+            <h3 className="font-serif text-xl font-bold mb-8 tracking-wide">
               {mounted ? t("nav.menu") : "Menu"}
             </h3>
             <ul className="space-y-4">
@@ -219,7 +212,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-1">
-            <h3 className={`${playfair.className} text-xl font-bold mb-8 tracking-wide`}>
+            <h3 className="font-serif text-xl font-bold mb-8 tracking-wide">
               {mounted ? t("footer.newsletter") : "Newsletter"}
             </h3>
             <p className="mb-6 text-neutral-400">

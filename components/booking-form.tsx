@@ -85,9 +85,17 @@ export function BookingForm() {
   ])
 
   // Initialize EmailJS and set mounted state
+  const [blockedDates, setBlockedDates] = useState<string[]>([])
+
   useEffect(() => {
     emailjs.init(EMAILJS_PUBLIC_KEY)
     setMounted(true)
+    
+    // Fetch blocked dates
+    fetch("/api/blocked-dates")
+      .then((res) => res.json())
+      .then((data) => setBlockedDates(data))
+      .catch((err) => console.error("Error fetching blocked dates:", err))
   }, [])
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -118,10 +126,26 @@ export function BookingForm() {
       reply_to: values.email,
     }
 
-    // Send email using EmailJS
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
-      .then((response) => {
-        console.log("SUCCESS!", response.status, response.text)
+    // Send email using EmailJS and save to API
+    Promise.all([
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY),
+      fetch("/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          date: format(values.date, "yyyy-MM-dd"),
+          time: values.time,
+          guests: values.guests,
+          occasion: values.occasion || "",
+          specialRequests: values.specialRequests || "",
+        }),
+      }),
+    ])
+      .then(([emailResponse, apiResponse]) => {
+        console.log("SUCCESS!", emailResponse.status, emailResponse.text)
         toast.success(mounted ? "Reservation Request Received" : "Reservation Request Received", {
           description: mounted 
             ? `Your request for ${values.guests} on ${format(values.date, "PPP")} at ${values.time} has been sent. We'll confirm your reservation shortly via email or phone.`
@@ -253,7 +277,18 @@ export function BookingForm() {
                         if (date < today) return true;
                         
                         // Disable Wednesdays (Wednesday is day 3, where Sunday is day 0)
-                        return date.getDay() === 3;
+                        if (date.getDay() === 3) return true;
+                        
+                        // Disable December 25th (Christmas Day)
+                        const month = date.getMonth(); // 0-11, December is 11
+                        const day = date.getDate();
+                        if (month === 11 && day === 25) return true;
+                        
+                        // Disable blocked dates from admin
+                        const dateString = format(date, "yyyy-MM-dd")
+                        if (blockedDates.includes(dateString)) return true;
+                        
+                        return false;
                       }}
                       initialFocus
                       className="border-gold-200"
@@ -261,7 +296,7 @@ export function BookingForm() {
                   </PopoverContent>
                 </Popover>
                 <FormMessage />
-                <p className="text-sm text-neutral-500 mt-1">Note: We don't take reservations on Wednesdays.</p>
+                <p className="text-sm text-neutral-500 mt-1">Note: We don't take reservations on Wednesdays, December 25th, or dates blocked by the restaurant.</p>
               </FormItem>
             )}
           />
