@@ -34,22 +34,22 @@ If the environment variable is not set, it defaults to `mosob2025`.
 - Blocked dates are stored in `/data/blocked-dates.json`
 - Both files are automatically created when needed
 
-**Production (Vercel):**
-- Blocked dates use **Vercel KV** (Redis) for persistent storage
-- The system automatically detects if Vercel KV environment variables are set
-- Falls back to file system if KV is not configured (but file system writes don't work on serverless platforms)
+**Production:**
+- Blocked dates use **Redis** for persistent storage
+- The system automatically detects if `REDIS_URL` environment variable is set
+- Falls back to file system if Redis is not configured (but file system writes don't work on serverless platforms)
 
-**Setting up Vercel KV for Production:**
-1. Go to your Vercel project dashboard
-2. Navigate to Storage → Create Database → KV
-3. Create a new KV database
-4. Vercel will automatically add the required environment variables:
-   - `KV_REST_API_URL`
-   - `KV_REST_API_TOKEN`
-   - `KV_REST_API_READ_ONLY_TOKEN`
+**Setting up Redis for Production:**
+1. Create a Redis database (e.g., Redis Labs, Upstash, or Vercel KV)
+2. Get your Redis connection URL (format: `redis://[username]:[password]@[host]:[port]`)
+3. Add the environment variable to your production environment:
+   ```bash
+   REDIS_URL="redis://default:password@host:port"
+   ```
+4. In Vercel, add it in Project Settings → Environment Variables
 5. Redeploy your application
 
-The blocked dates feature will automatically use KV in production when these environment variables are available.
+The blocked dates feature will automatically use Redis in production when `REDIS_URL` is configured. For local development, it uses the file system by default.
 
 ---
 

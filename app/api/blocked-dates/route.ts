@@ -1,31 +1,48 @@
 import { NextRequest, NextResponse } from "next/server"
 import fs from "fs"
 import path from "path"
+import Redis from "ioredis"
 
 const BLOCKED_DATES_FILE = path.join(process.cwd(), "data", "blocked-dates.json")
-const KV_KEY = "blocked_dates"
+const REDIS_KEY = "mosob:blocked_dates"
 
-// Check if KV is available (in production/Vercel)
-function isKvAvailable(): boolean {
-  return !!(
-    process.env.KV_REST_API_URL &&
-    process.env.KV_REST_API_TOKEN &&
-    process.env.KV_REST_API_READ_ONLY_TOKEN
-  )
+// Check if Redis is available
+function isRedisAvailable(): boolean {
+  return !!process.env.REDIS_URL
 }
 
-// Get KV client (only if available)
-async function getKvClient() {
-  if (!isKvAvailable()) {
+// Get Redis client (singleton pattern)
+let redisClient: Redis | null = null
+
+function getRedisClient(): Redis | null {
+  if (!isRedisAvailable()) {
     return null
   }
-  try {
-    const { kv } = await import("@vercel/kv")
-    return kv
-  } catch (error) {
-    console.error("Error importing KV client:", error)
-    return null
+
+  if (!redisClient) {
+    try {
+      redisClient = new Redis(process.env.REDIS_URL!, {
+        retryStrategy: (times) => {
+          const delay = Math.min(times * 50, 2000)
+          return delay
+        },
+        maxRetriesPerRequest: 3,
+      })
+
+      redisClient.on("error", (error) => {
+        console.error("Redis connection error:", error)
+      })
+
+      redisClient.on("connect", () => {
+        console.log("Connected to Redis")
+      })
+    } catch (error) {
+      console.error("Error creating Redis client:", error)
+      return null
+    }
   }
+
+  return redisClient
 }
 
 // Ensure data directory exists (for file system fallback)
@@ -36,17 +53,20 @@ function ensureDataDir() {
   }
 }
 
-// Read blocked dates from KV or file system
+// Read blocked dates from Redis or file system
 async function readBlockedDates(): Promise<string[]> {
-  if (isKvAvailable()) {
+  if (isRedisAvailable()) {
     try {
-      const kv = await getKvClient()
-      if (kv) {
-        const dates = await kv.get<string[]>(KV_KEY)
-        return dates || []
+      const redis = getRedisClient()
+      if (redis) {
+        const data = await redis.get(REDIS_KEY)
+        if (data) {
+          return JSON.parse(data) as string[]
+        }
+        return []
       }
     } catch (error) {
-      console.error("Error reading blocked dates from KV:", error)
+      console.error("Error reading blocked dates from Redis:", error)
       // Fall through to file system fallback
     }
   }
@@ -65,18 +85,18 @@ async function readBlockedDates(): Promise<string[]> {
   }
 }
 
-// Write blocked dates to KV or file system
+// Write blocked dates to Redis or file system
 async function writeBlockedDates(dates: string[]): Promise<void> {
-  if (isKvAvailable()) {
+  if (isRedisAvailable()) {
     try {
-      const kv = await getKvClient()
-      if (kv) {
-        await kv.set(KV_KEY, dates)
+      const redis = getRedisClient()
+      if (redis) {
+        await redis.set(REDIS_KEY, JSON.stringify(dates))
         return
       }
     } catch (error) {
-      console.error("Error writing blocked dates to KV:", error)
-      throw new Error("Failed to save blocked dates to storage")
+      console.error("Error writing blocked dates to Redis:", error)
+      throw new Error("Failed to save blocked dates to Redis storage")
     }
   }
 
@@ -88,7 +108,7 @@ async function writeBlockedDates(dates: string[]): Promise<void> {
     console.error("Error writing blocked dates to file:", error)
     // In serverless/production environments, file system writes may not be allowed
     if (error.code === "EACCES" || error.code === "EROFS" || error.code === "ENOENT") {
-      throw new Error("File system write not supported. Please configure Vercel KV for production.")
+      throw new Error("File system write not supported. Please configure REDIS_URL for production.")
     }
     throw error
   }
