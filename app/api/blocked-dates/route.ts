@@ -29,8 +29,17 @@ function readBlockedDates(): string[] {
 
 // Write blocked dates to file
 function writeBlockedDates(dates: string[]) {
-  ensureDataDir()
-  fs.writeFileSync(BLOCKED_DATES_FILE, JSON.stringify(dates, null, 2))
+  try {
+    ensureDataDir()
+    fs.writeFileSync(BLOCKED_DATES_FILE, JSON.stringify(dates, null, 2))
+  } catch (error: any) {
+    console.error("Error writing blocked dates:", error)
+    // In serverless/production environments, file system writes may not be allowed
+    if (error.code === "EACCES" || error.code === "EROFS" || error.code === "ENOENT") {
+      throw new Error("File system write not supported in production. Please use a database or external storage.")
+    }
+    throw error
+  }
 }
 
 // GET - Get all blocked dates
@@ -66,9 +75,12 @@ export async function POST(request: NextRequest) {
     writeBlockedDates(blockedDates)
     
     return NextResponse.json({ success: true, blockedDates })
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error blocking date:", error)
-    return NextResponse.json({ error: "Failed to block date" }, { status: 500 })
+    const errorMessage = error?.message?.includes("File system write not supported") 
+      ? "Blocking dates is not available in production. Please configure a database for persistent storage."
+      : "Failed to block date"
+    return NextResponse.json({ error: errorMessage }, { status: 500 })
   }
 }
 
@@ -91,9 +103,12 @@ export async function DELETE(request: NextRequest) {
     
     writeBlockedDates(filtered)
     return NextResponse.json({ success: true, blockedDates: filtered })
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error unblocking date:", error)
-    return NextResponse.json({ error: "Failed to unblock date" }, { status: 500 })
+    const errorMessage = error?.message?.includes("File system write not supported")
+      ? "Unblocking dates is not available in production. Please configure a database for persistent storage."
+      : "Failed to unblock date"
+    return NextResponse.json({ error: errorMessage }, { status: 500 })
   }
 }
 
