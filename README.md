@@ -28,9 +28,28 @@ If the environment variable is not set, it defaults to `mosob2025`.
 - Change reservation status (pending, confirmed, cancelled)
 
 ### Data Storage
+
+**Local Development:**
 - Reservations are stored in `/data/reservations.json`
 - Blocked dates are stored in `/data/blocked-dates.json`
 - Both files are automatically created when needed
+
+**Production (Vercel):**
+- Blocked dates use **Vercel KV** (Redis) for persistent storage
+- The system automatically detects if Vercel KV environment variables are set
+- Falls back to file system if KV is not configured (but file system writes don't work on serverless platforms)
+
+**Setting up Vercel KV for Production:**
+1. Go to your Vercel project dashboard
+2. Navigate to Storage → Create Database → KV
+3. Create a new KV database
+4. Vercel will automatically add the required environment variables:
+   - `KV_REST_API_URL`
+   - `KV_REST_API_TOKEN`
+   - `KV_REST_API_READ_ONLY_TOKEN`
+5. Redeploy your application
+
+The blocked dates feature will automatically use KV in production when these environment variables are available.
 
 ---
 
