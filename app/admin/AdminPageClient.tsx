@@ -98,18 +98,19 @@ export default function AdminPageClient() {
         body: JSON.stringify({ date: newBlockedDate }),
       })
 
+      const data = await response.json()
+
       if (response.ok) {
-        const data = await response.json()
         setBlockedDates(data.blockedDates)
         setNewBlockedDate("")
         toast.success("Date blocked successfully")
+        fetchBlockedDates() // Refresh the blocked dates list
       } else {
-        const error = await response.json()
-        toast.error(error.error || "Failed to block date")
+        toast.error(data.error || "Failed to block date")
       }
     } catch (error) {
       console.error("Error blocking date:", error)
-      toast.error("Failed to block date")
+      toast.error("Failed to block date. Please try again.")
     }
   }
 
@@ -119,16 +120,18 @@ export default function AdminPageClient() {
         method: "DELETE",
       })
 
+      const data = await response.json()
+
       if (response.ok) {
-        const data = await response.json()
         setBlockedDates(data.blockedDates)
         toast.success("Date unblocked successfully")
+        fetchBlockedDates() // Refresh the blocked dates list
       } else {
-        toast.error("Failed to unblock date")
+        toast.error(data.error || "Failed to unblock date")
       }
     } catch (error) {
       console.error("Error unblocking date:", error)
-      toast.error("Failed to unblock date")
+      toast.error("Failed to unblock date. Please try again.")
     }
   }
 
