@@ -157,9 +157,21 @@ const galleryData: GalleryData = {
     },
     { 
       src: "/WhatsApp Image 2025-06-27 at 18.05.35.jpeg", 
-      alt: "Traditioneel gerecht 6", 
-      caption: "Traditioneel gerecht Mosob Asmara", 
-      type: "image" 
+      alt: "Traditioneel gerecht 6",
+      caption: "Traditioneel gerecht Mosob Asmara",
+      type: "image"
+    },
+    {
+      src: "/gerecht-platter-2026.jpeg",
+      alt: "Traditioneel gerecht 7",
+      caption: "Traditioneel gerecht Mosob Asmara",
+      type: "image"
+    },
+    {
+      src: "/gerecht-pasta-2026.jpeg",
+      alt: "Traditioneel gerecht 8",
+      caption: "Traditioneel gerecht Mosob Asmara",
+      type: "image"
     },
   ],
   events: [
